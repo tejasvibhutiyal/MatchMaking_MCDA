@@ -19,7 +19,7 @@ Modified Description
 
 Similarity Scores
 
-![Alt text](Images/similarity_score.png.png)
+![Alt text](Images/similarity_score.png)
 
 The comparison results between the old and modified data embeddings show interesting patterns. Using cosine similarity, Rakshit Gupta's and Tejasvi Bhutiyal's embeddings demonstrated high similarity (0.83 and 0.90, respectively), suggesting that the changes had a relatively small impact. Neeyati Mehta's embedding showed moderate similarity (0.78), while Sylvester Terdoo's had the lowest similarity (0.69), indicating a more noticeable impact.
 
