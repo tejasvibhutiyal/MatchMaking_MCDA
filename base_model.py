@@ -6,6 +6,8 @@ from sentence_transformers import SentenceTransformer
 import umap.umap_ as umap
 import matplotlib.pyplot as plt
 from collections import defaultdict
+import config as CONFIG
+import os
 
 class MatchMakingModel:
     """
@@ -61,20 +63,20 @@ class MatchMakingModel:
         Returns:
         numpy.ndarray: An array containing the reduced-dimensional representations of person embeddings.
         """
-        reducer = umap.UMAP(random_state=42)
+        reducer = umap.UMAP(random_state= CONFIG.RANDOM_STATE)
         scaler = StandardScaler()
         scaled_data = scaler.fit_transform(list(person_embeddings.values()))
         reduced_data = reducer.fit_transform(scaled_data)
         return reduced_data
 
-    def plot_and_annotate(self, reduced_data, person_embeddings, save_path='visualization.png', dpi=800):
+    def plot_and_annotate(self, reduced_data, person_embeddings, file_name='visualization.png', dpi=800):
         """
         Plots and annotates data points in a 2D scatter plot based on reduced-dimensional embeddings.
 
         Parameters:
         - reduced_data (numpy.ndarray): An array containing the reduced-dimensional representations of person embeddings.
         - person_embeddings (dict): A dictionary where keys are names and values are corresponding embeddings.
-        - save_path (str, optional): The file path to save the visualization. Default is 'visualization.png'.
+        - file_name (str, optional): The file path to save the visualization. Default is 'visualization.png'.
         - dpi (int, optional): Dots per inch for the saved image. Default is 800.
         """
         # Extracting coordinates and labels
@@ -88,8 +90,9 @@ class MatchMakingModel:
             plt.annotate(name, (x[i], y[i]), fontsize=3)
 
         # Clean-up and Export
+        file_name = os.path.join(CONFIG.BASE_RESULTS,file_name)
         plt.axis('off')
-        plt.savefig(save_path, dpi=dpi)
+        plt.savefig(file_name, dpi=dpi)
         plt.show()
 
     def top_matches(self, attendees_map, person_embeddings):

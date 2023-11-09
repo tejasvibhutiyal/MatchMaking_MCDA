@@ -3,10 +3,18 @@ channels:
   - conda-forge
   - pytorch
 dependencies:
-  - python
+  - python = 3.10
   - pip
+  - pytorch
   - numpy
+  - pandas
   - scikit-learn
   - matplotlib
-  - embetter
+  - matplotlib-inline
+  - nltk
+  - seaborn
+  - bs4
   - sentence-transformers
+  - umap-learn
+  - black
+  - optuna
