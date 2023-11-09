@@ -35,3 +35,44 @@ The core of our comparison relied on Spearman’s rank correlation coefficient, 
 It was observed that there were some notable shifts in rankings for certain individuals. Specifically, a few classmates who were ranked moderately far in the all-MiniLM-L6-v2 model appeared significantly closer in the all-mpnet-base-v2 model and vice versa. This shift underscores the nuanced differences in how each model processes and represents semantic similarities in text.
 
 Below is the flattened embedding space of names clustered based on their interests using the sentence-transformers all-mpnet-base-v2 model.
+
+
+![Sample output of script](Images/visualization_mpnet.png?raw=true)
+
+
+## Dimension Reduction Analysis
+
+We tried getting the visualizations at different random seeds like 12, 27 and 42 (shown on top) for sentence transformer all-MiniLM-L6-v2 model. Below are the visualizations as shown:
+
+![Sample output of script](Images/visualization_umap_RandomState_12.png?raw=true)
+
+![Sample output of script](Images/visualization_umap_RandomState_27.png?raw=true)
+
+When using different random seed in UMAP dimension reduction exhibited notable fluctuations.This variability indicated a certain degree of instability or sensitivity in the model, suggesting that the initial embeddings' placement significantly influenced the resultant 2D projections.
+
+However, post-tuning, UMAP with optimized parameters using optuna for n_neighbors, min_dist and metric, the model exhibited markedly reduced sensitivity to changes in the random seed. The visualizations remained more consistent across different seeds, indicating enhanced stability in the dimension reduction process by UMAP. This improvement suggests that the tuned parameters better captured the intrinsic structure of the data, making the model less reliant on the initial random configuration and more robust to variations in starting conditions.
+
+
+
+### RESULTS:
+
+1. Output for Tuned UMAP at ramdom seed 12
+
+    ![Sample output of script](Images/visualization_umap_optimised_RandomState_12.png?raw=true)
+
+2. Output for Tuned UMAP at ramdom seed 27
+
+    ![Sample output of script](Images/visualization_umap_optimised_RandomState_27.png?raw=true)
+
+3. Output for Tuned UMAP at ramdom seed 42
+    
+    ![Sample output of script](Images/optuna_tuned_best_params.png?raw=true)
+
+    Shown above are the results of optuna study to find best parameters for umap to get the best results to maximize average rank correlation between
+
+    (a) cosine similarity in embedding space  
+    (b) the Euclidean distance between points in the two-dimensional visualization
+
+    ![Sample output of script](Images/visualization_umap_RandomState_42.png?raw=true)
+
+As we can see that after optimising UMAP with optuna, the effect of random seed was comparatively less on the visualization than without optimization. Rakshit, Nghia, Nikita and Raoof showed consistent pattern in the above plots after optimization than in the initial plots on change of random seed. It showed model preserves the meaningful relationships in the data even after reducing the dimensions. This shows that the tuned model exhibits stability however it is still not completely insensitive to random seed.
