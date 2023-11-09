@@ -1,0 +1,12 @@
+name: assignment3_env
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python
+  - pip
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - embetter
+  - sentence-transformers
