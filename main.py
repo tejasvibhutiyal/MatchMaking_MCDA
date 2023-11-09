@@ -15,6 +15,7 @@ selected_list = [
     "Sylvester Terdoo",
     "Tejasvi Bhutiyal",
     ]
+
 classmates_map_data_change = {}
 classmates_map_data_change["Rakshit Gupta"] = "I love to travel and uncovering unfamiliar places, and relish engaging in pastimes such as reading and basketball."
 classmates_map_data_change["Neeyati Mehta"] = "I like napping."

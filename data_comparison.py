@@ -27,8 +27,7 @@ def compare_data(old_attendees_map, modified_attendees_map, distance_metric = 'c
         if distance_metric == 'cosine':
             similarity = 1 - distance.cosine(old_embedding, modified_embedding)
         elif distance_metric == 'euclidean':
-            similarity = -distance.euclidean(old_embedding, modified_embedding)
-            # Using negative Euclidean distance as a similarity measure
+            similarity = distance.euclidean(old_embedding, modified_embedding)
 
         # Store the result
         comparison_results[name] = similarity
