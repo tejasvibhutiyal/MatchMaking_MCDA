@@ -34,18 +34,19 @@ class MatchMakingModel:
         
         return attendees_map
 
-    def generate_embeddings(self,attendees_map):
+    def generate_embeddings(self,attendees_map, transformer):
         """
-        Generates sentence embeddings for description in the provided attendees map using a pre-trained model.
+        Generates sentence embeddings for each paragraph associated with a classmate.
 
-        Parameters:
-        - attendees_map (dict): A dictionary where keys are names and values are corresponding description.
+        Args:
+            class_val_map (dict): A dictionary mapping classmate names to their paragraphs.
+            transformer (str): The transformer model to be used for generating embeddings.
 
         Returns:
-        list: A list of sentence embeddings generated from the descriptions.
+            dict: A dictionary mapping classmate names (keys) to their sentence embeddings (values).
         """
         names = list(attendees_map.keys())
-        model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        model = SentenceTransformer(transformer)
         descriptions = list(attendees_map.values())
         embeddings= model.encode(descriptions)
         person_embeddings = {name: embedding for name, embedding in zip(names, embeddings)}
@@ -113,4 +114,3 @@ class MatchMakingModel:
             top_matches[person] = sorted(all_personal_pairs[person], key=lambda x: x[1])
         
         return top_matches
-
